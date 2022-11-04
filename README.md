@@ -1,2 +1,2 @@
-# Taco-Tuesday-Planner
-An application that will allow the user to find a restaurant and pair it with an event. This will help users quickly match and set up date events that suits the users needs.
+# Drink-Outside-The-Box
+An application that allows the user to select a random drink recipe as well as a random joke to tell a friend!
