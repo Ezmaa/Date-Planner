@@ -1,0 +1,14 @@
+.navbar-item h1 {
+    font-family: "Caveat", cursive, sans-serif;
+    text-align: center;
+    font-size: 48px;
+}
+
+p {
+    font-family: "Amatic SC", cursive;
+}
+
+.panel {
+    width: 25%;
+    margin-top: 10px;
+}
