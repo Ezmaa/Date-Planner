@@ -1,14 +1,41 @@
+:root {
+    --background: #FCF6F5FF;
+}
+
+body {
+    background-color: var(--background);
+}
+
 .navbar-item h1 {
     font-family: "Caveat", cursive, sans-serif;
-    text-align: center;
     font-size: 48px;
 }
 
 p {
     font-family: "Amatic SC", cursive;
+    font-size: 32px;
+}
+
+.tile {
+    margin-top: 10px;
 }
 
 .panel {
-    width: 25%;
     margin-top: 10px;
+}
+
+.tile {
+    background-color: var(--background);
+}
+
+
+footer p {
+    font-size: 36px;
+    font-weight: bolder;
+}
+
+.button {
+    font-family: "Amatic SC", cursive;
+    font-size: 36px;
+    font-weight: bold;
 }
