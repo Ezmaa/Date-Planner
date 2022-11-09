@@ -2,9 +2,29 @@ const generateJokeEl = document.querySelector("#generate-joke");
 const generateRecipeEl = document.querySelector("#generate-recipe");
 const getRandomImage = document.querySelector("#random-image");
 
-// function generateJoke() {
 
-// };
+function generateJoke() {
+    fetch('https://official-joke-api.appspot.com/random_joke')
+    .then((response) => response.json())
+    .then(function(data){
+        let generatedJoke = document.getElementById("joke1")
+        console.log(data)
+        setup = (data.setup)
+        punchline = (data.punchline)
+        generatedJoke.innerHTML = setup + "<br></br>" + punchline
+        singleJoke = {setup, punchline}
+        localStorage.setItem("joke", JSON.stringify(singleJoke))
+  })
+  .catch(error => console.log(error))
+};
+
+
+
+generateJokeEl.addEventListener('click', function(){
+    generateJoke()
+});
+
+
 
 // generate random drink and recipe 
 
