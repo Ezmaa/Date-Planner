@@ -18,6 +18,7 @@ p {
 
 .tile {
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .panel {
@@ -36,6 +37,11 @@ footer p {
 
 .button {
     font-family: "Amatic SC", cursive;
-    font-size: 36px;
+    font-size: 38px;
     font-weight: bold;
+}
+
+.delete {
+    background-color: red !important;
+    margin-left: 26rem !important;
 }
