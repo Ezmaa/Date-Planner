@@ -23,8 +23,8 @@
     <!-- Hero Section -->
     <section class="hero is-medium has-background-link-dark">
         <div class="hero-body">
-            <p class="title has-text-light">
-                Let's make funny jokes to tickle your rosé
+            <p class="title has-text-light is-size-1">
+                Let's make funny jokes to tickle your rosé <i class="fa-sharp fa-solid fa-champagne-glasses"></i>
             </p>
         </div>
     </section>
@@ -37,13 +37,18 @@
                 <!-- Generate New Jokes -->
                 <div class="tile is-parent is-vertical">
                     <article class="tile is-child box">
-                        <button class="button is-large is-responsive is-link is-rounded" id="generate-joke">Generate a Joke</button>
+                        <div class="content has-text-centered">
+                            <button class="button is-large is-responsive is-link is-rounded" id="generate-joke">Generate a Joke</button>
+                        </div>
                         <article class="panel is-link">
                             <a class="panel-block is-active is-flex-wrap-wrap">
                                 <p id="joke1">Joke</p>
                                 </span>
                             </a>
                         </article>
+                        <div class="content has-text-centered">
+                            <button class="button is-medium is-responsive is-primary is-rounded" id="generate-recipe">Click to save this joke</button>
+                        </div>
                     <!-- Saved Jokes -->
                     </article>
                     <article class="tile is-child box">
@@ -52,23 +57,9 @@
                                 Saved Jokes
                             </p>
                             <a class="panel-block is-active is-flex-wrap-wrap">
-                                <p>Joke 1
-                                    <button class="button" id="remove">
-                                        <span class="icon is-small">
-                                            <i class="fa-sharp fa-solid fa-xmark"></i>
-                                        </span>
-                                    </button>
-                                </p>
+                                <p>Joke</p>
+                                <button class="delete is-medium"></button>
                             </a> 
-                            <a class="panel-block">
-                                <p>Joke 2</p>
-                            </a>
-                            <a class="panel-block">
-                                <p>Joke 3</p>
-                            </a>
-                            <a class="panel-block">
-                                <p>Joke 4</p>
-                            </a>
                         </article>
                     </article>
                 </div>
@@ -84,14 +75,33 @@
                 </div>
                 <div class="tile is-parent is-vertical">
                     <article class="tile is-child box">
-                        <button class="button is-large is-responsive is-link is-rounded" id="generate-recipe">Generate a Recipe</button>
+                        <div class="field has-addons has-addons-centered">
+                            <div class="control">
+                                <div class="select is-medium is-rounded">
+                                <select id="drink">
+                                    <option selected>Select Drink</option>
+                                    <option value="Argentina">Argentina</option>
+                                    <option value="Bolivia">Bolivia</option>
+                                    <option value="Brazil">Brazil</option>
+                                    <option value="Chile">Chile</option>
+                                    <option value="Colombia">Colombia</option>
+                                    <option value="Ecuador">Ecuador</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <button type="submit" class="button is-medium is-link is-rounded">Select</button>
+                            </div>
+                        </div>
                         <article class="panel is-info">
                             <a class="panel-block is-active is-flex-wrap-wrap">
-                                <h2 id="drinkName"></h2>
-                                <ol id="ingredientsList"></ol>
+                                <p>Recipe</p>
                             </a>
                         </article>
-                    <!-- Saved Recipes -->
+                        <div class="content has-text-centered">
+                            <button class="button is-medium is-responsive is-primary is-rounded" id="generate-recipe">Click to save this recipe</button>
+                        </div>
+                        <!-- Saved Recipes -->
                     </article>
                     <article class="tile is-child box">
                         <article class="panel is-link">
@@ -99,7 +109,7 @@
                                 Saved Recipes
                             </p>
                             <a class="panel-block is-active is-flex-wrap-wrap">
-                                <p>Recipe 1</p>
+                                <p>Recipe</p>
                                 <button class="delete is-medium"></button>
                             </a>
                         </article>
