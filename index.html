@@ -14,17 +14,12 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="navbar-item has-text-link">
-            <h1>Drink Outside the Box</h1>
-        </div>
-    </nav>
 
     <!-- Hero Section -->
     <section class="hero is-medium has-background-link-dark">
         <div class="hero-body">
             <p class="title has-text-light is-size-1">
-                Let's make funny jokes to tickle your rosé <i class="fa-sharp fa-solid fa-champagne-glasses"></i>
+                Drink Outside the Box <i class="fa-sharp fa-solid fa-champagne-glasses"></i>
             </p>
         </div>
     </section>
@@ -47,7 +42,7 @@
                             </a>
                         </article>
                         <div class="content has-text-centered">
-                            <button class="button is-medium is-responsive is-primary is-rounded" id="generate-recipe">Click to save this joke</button>
+                            <button class="button is-medium is-responsive is-primary is-rounded">Click to save this joke</button>
                         </div>
                     <!-- Saved Jokes -->
                     </article>
@@ -57,8 +52,8 @@
                                 Saved Jokes
                             </p>
                             <a class="panel-block is-active is-flex-wrap-wrap">
-                                <p>Joke</p>
-                                <button class="delete is-medium"></button>
+                                <p class="mr-auto">Joke</p>
+                                <span class="icon is-large has-text-danger"><i class="fas fa-trash-alt"></i></span>
                             </a> 
                         </article>
                     </article>
@@ -79,18 +74,18 @@
                             <div class="control">
                                 <div class="select is-medium is-rounded">
                                 <select id="drink">
-                                    <option selected>Select Drink</option>
-                                    <option value="Argentina">Argentina</option>
-                                    <option value="Bolivia">Bolivia</option>
-                                    <option value="Brazil">Brazil</option>
-                                    <option value="Chile">Chile</option>
-                                    <option value="Colombia">Colombia</option>
-                                    <option value="Ecuador">Ecuador</option>
+                                    <option value="" disabled selected>Select Liquor</option>
+                                    <option value="Vodka">Vodka</option>
+                                    <option value="Gin">Gin</option>
+                                    <option value="Rum">Rum</option>
+                                    <option value="Tequila">Tequila</option>
+                                    <option value="Whiskey">Whiskey</option>
+                                    <option value="Wine">Wine</option>
                                 </select>
                                 </div>
                             </div>
                             <div class="control">
-                                <button type="submit" class="button is-medium is-link is-rounded">Select</button>
+                                <button class="button is-medium is-link is-rounded" id="generate-recipe">Select</button>
                             </div>
                         </div>
                         <article class="panel is-info">
@@ -109,8 +104,8 @@
                                 Saved Recipes
                             </p>
                             <a class="panel-block is-active is-flex-wrap-wrap">
-                                <p>Recipe</p>
-                                <button class="delete is-medium"></button>
+                                <p class="mr-auto">Recipe</p>
+                                <span class="icon is-large has-text-danger"><i class="fas fa-trash-alt"></i></span>
                             </a>
                         </article>
                     </article>

@@ -22,11 +22,6 @@ function generateJoke() {
 };
 
 
-//genrate joke event listner
-generateJokeEl.addEventListener('click', function(){
-    generateJoke()
-});
-
 saveJoke.addEventListener("click", function(){
     //create init data for all jokes storage
     if (localStorage.getItem("init-data-jokes") != "true"){
@@ -86,7 +81,11 @@ function removeAllChildNodes(parent) {
 
 const drinkButtonVariable = document.getElementById('drinkButton');
 function generateRecipe() {
-    let randomUrl = `https://www.thecocktaildb.com/api/json/v1/1/random.php`;
+    const select = document.getElementById('drink');
+    let liquor = select.options[select.selectedIndex].value;
+    console.log(liquor);
+    let randomUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=` + liquor;
+    console.log(randomUrl);
 
     fetch(randomUrl)
         .then(function (response) {
@@ -125,7 +124,3 @@ function generateRecipe() {
 
 // function getRandomImage() {
 // };
-
-
-
-generateRecipeEl.addEventListener('click', generateRecipe);
