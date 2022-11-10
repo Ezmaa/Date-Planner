@@ -1,10 +1,12 @@
 const generateJokeEl = document.querySelector("#generate-joke");
+const saveJoke = document.getElementById("save-joke")
 const generateRecipeEl = document.querySelector("#generate-recipe");
 const getRandomImage = document.querySelector("#random-image");
 const drinkName = document.querySelector('#drinkName');
 const ingredientList = document.querySelector('#ingredientsList');
+const savedJokesA = document.getElementById("saved-jokes")
 
-
+//function to generate random jokes
 function generateJoke() {
     fetch('https://official-joke-api.appspot.com/random_joke')
     .then((response) => response.json())
@@ -14,19 +16,65 @@ function generateJoke() {
         setup = (data.setup)
         punchline = (data.punchline)
         generatedJoke.innerHTML = setup + "<br></br>" + punchline
-        singleJoke = {setup, punchline}
-        localStorage.setItem("joke", JSON.stringify(singleJoke))
+        localStorage.setItem("joke", JSON.stringify(generatedJoke.innerHTML))
   })
   .catch(error => console.log(error))
 };
 
 
+saveJoke.addEventListener("click", function(){
+    //create init data for all jokes storage
+    if (localStorage.getItem("init-data-jokes") != "true"){
+        localStorage.setItem("init-data-jokes", "true")
+        //add jokes to saved jokes and local storage
+        var allJokes = []
+        allJokes.push(JSON.parse(localStorage.getItem("joke")));
+        localStorage.setItem('allJokes', JSON.stringify(allJokes));
+        removeAllChildNodes(savedJokesA)
+        listSavedJokes()
+    return;
+    }
+    var initData = localStorage.getItem("init-data-jokes")
+    if (initData = "true"){
+        //add jokes to saved jokes and local storage
+        allJokes = JSON.parse(localStorage.getItem("allJokes"));
+        allJokes.push(JSON.parse(localStorage.getItem("joke")));
+        localStorage.setItem('allJokes', JSON.stringify(allJokes));
+        removeAllChildNodes(savedJokesA)
+        listSavedJokes()
+}})
 
-generateJokeEl.addEventListener('submit', function(){
-    generateJoke();
-});
+//display saved jokees
 
+function listSavedJokes(){
+    var allJokes = JSON.parse(localStorage.getItem("allJokes"))
+    console.log (allJokes)
+    allJokesLength = allJokes.length
+    for(let i = 0; i < allJokesLength; i++){
+        var savedJoke = document.createElement("p")
+        savedJoke.setAttribute("data-index", i);
+        savedJoke.addEventListener("click", function(event){
+                if(event.target.nodeName === 'BUTTON'){
+                    let eTarget = event.currentTarget
+                    var index = eTarget.getAttribute("data-index");
+                    allJokes.splice(index, 1);
+                    localStorage.setItem('allJokes', JSON.stringify(allJokes))
+                    removeAllChildNodes(savedJokesA)
+                    listSavedJokes()
+                }
+        })
+        savedJoke.innerHTML = allJokes[i] + '<button class="delete is-medium"></button>'
+        savedJokesA.appendChild(savedJoke)
+    };  
+}
+listSavedJokes()
 
+//remove all child nodes function
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
 
 // generate random drink and recipe 
 
@@ -76,9 +124,3 @@ function generateRecipe() {
 
 // function getRandomImage() {
 // };
-
-
-// generateJokeEl.addEventListener('click', generateJoke());
-generateRecipeEl.addEventListener('click', function() {
-    generateRecipe();
-});
