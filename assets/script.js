@@ -33,10 +33,10 @@ generateJokeEl.addEventListener('submit', function(){
 
 const drinkButtonVariable = document.getElementById('drinkButton');
 function generateRecipe() {
-    let select = document.getElementById('drink');
-    var liquor = select.options[select.selectedIndex].value;
+    const select = document.getElementById('drink');
+    let liquor = select.options[select.selectedIndex].value;
     console.log(liquor);
-    let randomUrl = `www.thecocktaildb.com/api/json/v1/1/filter.php?i=` + liquor;
+    let randomUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=` + liquor;
     console.log(randomUrl);
 
     fetch(randomUrl)
