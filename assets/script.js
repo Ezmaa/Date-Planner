@@ -22,8 +22,8 @@ function generateJoke() {
 
 
 
-generateJokeEl.addEventListener('click', function(){
-    generateJoke()
+generateJokeEl.addEventListener('submit', function(){
+    generateJoke();
 });
 
 
@@ -33,7 +33,11 @@ generateJokeEl.addEventListener('click', function(){
 
 const drinkButtonVariable = document.getElementById('drinkButton');
 function generateRecipe() {
-    let randomUrl = `https://www.thecocktaildb.com/api/json/v1/1/random.php`;
+    let select = document.getElementById('drink');
+    var liquor = select.options[select.selectedIndex].value;
+    console.log(liquor);
+    let randomUrl = `www.thecocktaildb.com/api/json/v1/1/filter.php?i=` + liquor;
+    console.log(randomUrl);
 
     fetch(randomUrl)
         .then(function (response) {
@@ -75,4 +79,6 @@ function generateRecipe() {
 
 
 // generateJokeEl.addEventListener('click', generateJoke());
-generateRecipeEl.addEventListener('click', generateRecipe);
+generateRecipeEl.addEventListener('click', function() {
+    generateRecipe();
+});
