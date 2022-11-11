@@ -45,6 +45,8 @@ saveJoke.addEventListener("click", function(){
         allJokes.push(JSON.parse(localStorage.getItem("joke")));
         localStorage.setItem('allJokes', JSON.stringify(allJokes));
         removeAllChildNodes(savedJokesA)
+        let generatedJoke = document.getElementById("joke1")
+        generatedJoke.innerHTML = '';
         listSavedJokes()
 }})
 
@@ -55,7 +57,8 @@ function listSavedJokes(){
     console.log (allJokes)
     allJokesLength = allJokes.length
     for(let i = 0; i < allJokesLength; i++){
-        var savedJoke = document.createElement("p")
+        var savedJoke = document.createElement("p");
+        savedJoke.classList.add("panel-block", "saved-joke");
         savedJoke.setAttribute("data-index", i);
         savedJoke.addEventListener("click", function(event){
                 if(event.target.nodeName === 'BUTTON'){
@@ -67,7 +70,7 @@ function listSavedJokes(){
                     listSavedJokes()
                 }
         })
-        savedJoke.innerHTML = allJokes[i] + '<button class="delete is-medium"></button>'
+        savedJoke.innerHTML = allJokes[i] + '<button class="button is-medium has-text-danger"><i class="fas fa-trash-alt"></i></button>'
         savedJokesA.appendChild(savedJoke)
     };  
 }
