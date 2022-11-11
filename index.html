@@ -33,14 +33,16 @@
                 <div class="tile is-parent is-vertical">
                     <article class="tile is-child box">
                         <div class="content has-text-centered">
-                            <button class="button is-large is-responsive is-link is-rounded" id="generate-joke">Generate a Joke</button>
+                            <button class="button is-large is-responsive is-link is-rounded" id="generate-joke">Generate a Random Joke</button>
                         </div>
                         <article class="panel is-link">
                             <a class="panel-block is-active is-flex-wrap-wrap">
-                                <p id="joke1">Joke</p>
+                                <p id="joke1"></p>
                                 </span>
                             </a>
                         </article>
+                        <p class = 'content has-text-centered'><strong>--- OR ---</strong></p>
+                        <input class="input is-medium is-link mb-4" type="text" placeholder="Type your own joke">
                         <div class="content has-text-centered">
                             <button class="button is-medium is-responsive is-primary is-rounded" id="save-joke">Click to save this joke</button>
                         </div>
@@ -52,8 +54,7 @@
                                 Saved Jokes
                             </p>
                             <a class="panel-block is-active is-flex-wrap-wrap"  id="saved-jokes">
-                                <p class="mr-auto">Joke</p>
-                                <span class="icon is-large has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                                <p class="mr-auto"></p>
                             </a> 
                         </article>
                     </article>
@@ -105,7 +106,7 @@
                             </p>
                             <a class="panel-block is-active is-flex-wrap-wrap">
                                 <p class="mr-auto">Recipe</p>
-                                <span class="icon is-large has-text-danger"><i class="fas fa-trash-alt"></i></span>
+                                <button class="button is-medium has-text-danger"><i class="fas fa-trash-alt"></i></button>
                             </a>
                         </article>
                     </article>
