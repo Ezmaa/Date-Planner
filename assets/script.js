@@ -128,6 +128,5 @@ function generateRecipe() {
         });
 }
 
-
 // function getRandomImage() {
 // };
