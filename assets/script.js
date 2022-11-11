@@ -21,6 +21,10 @@ function generateJoke() {
   .catch(error => console.log(error))
 };
 
+//generate joke event listner
+generateJokeEl.addEventListener('click', function(){
+    generateJoke()
+});
 
 saveJoke.addEventListener("click", function(){
     //create init data for all jokes storage
