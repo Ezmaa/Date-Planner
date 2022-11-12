@@ -126,6 +126,8 @@ function generateRecipe() {
                 const key = drinkarr[i][0];
                 const value = drinkarr[i][1];
 
+                
+               
                 // finds the ingriendients in the array by selecting key values that have "ingredient"        
                 if (key.toLowerCase().includes('ingredient') && value) {
                     const listEl = document.createElement('li');
@@ -133,30 +135,30 @@ function generateRecipe() {
                     listEl.classList.add("recipe-item")
                     listEl.textContent = value;
                     ingredientList.append(listEl);
-                    
-                   
+
+
                 };
+            
 
             }
 
             drinkHistory.unshift(newDrink);
             localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
 
-            renderSavedDrink();
-            //    console.log(savedDrinkArr);
         });
 }
 
 function renderSavedDrink() {
 
     savedIngredientList.innerHTML = "";
-
+    
+    // append each drink item to the saved recipe list 
     for (let i = 0; i < drinkHistory.length; i++) {
         const saved = drinkHistory[i];
 
         const p = document.createElement("p");
         p.setAttribute("data-index", i);
-        p.textContent = saved.name;
+        p.textContent = (saved.name + " --- " + saved.ingredients);
 
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "delete";
@@ -165,20 +167,23 @@ function renderSavedDrink() {
         savedIngredientList.append(p);
 
 
+        // delete each item from list 
         deleteButton.addEventListener("click", function (event) {
-            event.preventDefault(); 
+            event.preventDefault();
             const element = event.target;
             if (element.matches("button") === true) {
                 const index = element.parentElement.getAttribute("data-index");
                 drinkHistory.splice(index, 1);
                 localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
-                
-               renderSavedDrink();
+
+                renderSavedDrink();
             }
 
         });
     }
+
 }
+
 
 
 
@@ -186,14 +191,9 @@ function renderSavedDrink() {
 
 saveButton.addEventListener("click", function (event) {
     event.preventDefault();
-
+    renderSavedDrink();
 });
-
-
-
-
 
 generateRecipeEl.addEventListener('click', generateRecipe);
 
 
-renderSavedDrink();
