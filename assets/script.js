@@ -1,126 +1,203 @@
 const generateJokeEl = document.querySelector("#generate-joke");
-const saveJoke = document.getElementById("save-joke")
+const saveJoke = document.getElementById("save-joke");
 const generateRecipeEl = document.querySelector("#generate-recipe");
 const getRandomImage = document.querySelector("#random-image");
 const drinkName = document.querySelector('#drinkName');
 const ingredientList = document.querySelector('#ingredientsList');
-const savedJokesA = document.getElementById("saved-jokes")
-
-//function to generate random jokes
-function generateJoke() {
-    fetch('https://official-joke-api.appspot.com/random_joke')
-    .then((response) => response.json())
-    .then(function(data){
-        let generatedJoke = document.getElementById("joke1")
-        console.log(data)
-        setup = (data.setup)
-        punchline = (data.punchline)
-        generatedJoke.innerHTML = setup + "<br></br>" + punchline
-        localStorage.setItem("joke", JSON.stringify(generatedJoke.innerHTML))
-  })
-  .catch(error => console.log(error))
-};
+const savedJokesA = document.getElementById("saved-jokes");
+const saveButton = document.querySelector('#save-recipe');
+const savedDrinkName = document.getElementById('savedDrinkName');
+const savedIngredientList = document.getElementById('savedIngredientList')
 
 
-saveJoke.addEventListener("click", function(){
-    //create init data for all jokes storage
-    if (localStorage.getItem("init-data-jokes") != "true"){
-        localStorage.setItem("init-data-jokes", "true")
-        //add jokes to saved jokes and local storage
-        var allJokes = []
-        allJokes.push(JSON.parse(localStorage.getItem("joke")));
-        localStorage.setItem('allJokes', JSON.stringify(allJokes));
-        removeAllChildNodes(savedJokesA)
-        listSavedJokes()
-    return;
-    }
-    var initData = localStorage.getItem("init-data-jokes")
-    if (initData = "true"){
-        //add jokes to saved jokes and local storage
-        allJokes = JSON.parse(localStorage.getItem("allJokes"));
-        allJokes.push(JSON.parse(localStorage.getItem("joke")));
-        localStorage.setItem('allJokes', JSON.stringify(allJokes));
-        removeAllChildNodes(savedJokesA)
-        listSavedJokes()
-}})
+// // function to generate random jokes
+// function generateJoke() {
+//     fetch('https://official-joke-api.appspot.com/random_joke')
+//     .then((response) => response.json())
+//     .then(function(data){
+//         let generatedJoke = document.getElementById("joke1")
+//         console.log(data)
+//         setup = (data.setup)
+//         punchline = (data.punchline)
+//         generatedJoke.innerHTML = setup + "<br></br>" + punchline
+//         localStorage.setItem("joke", JSON.stringify(generatedJoke.innerHTML))
+//   })
+//   .catch(error => console.log(error))
+// };
 
-//display saved jokees
 
-function listSavedJokes(){
-    var allJokes = JSON.parse(localStorage.getItem("allJokes"))
-    console.log (allJokes)
-    allJokesLength = allJokes.length
-    for(let i = 0; i < allJokesLength; i++){
-        var savedJoke = document.createElement("p")
-        savedJoke.setAttribute("data-index", i);
-        savedJoke.addEventListener("click", function(event){
-                if(event.target.nodeName === 'BUTTON'){
-                    let eTarget = event.currentTarget
-                    var index = eTarget.getAttribute("data-index");
-                    allJokes.splice(index, 1);
-                    localStorage.setItem('allJokes', JSON.stringify(allJokes))
-                    removeAllChildNodes(savedJokesA)
-                    listSavedJokes()
-                }
-        })
-        savedJoke.innerHTML = allJokes[i] + '<button class="delete is-medium"></button>'
-        savedJokesA.appendChild(savedJoke)
-    };  
-}
-listSavedJokes()
+// saveJoke.addEventListener("click", function(){
+//     //create init data for all jokes storage
+//     if (localStorage.getItem("init-data-jokes") != "true"){
+//         localStorage.setItem("init-data-jokes", "true")
+//         //add jokes to saved jokes and local storage
+//         var allJokes = []
+//         allJokes.push(JSON.parse(localStorage.getItem("joke")));
+//         localStorage.setItem('allJokes', JSON.stringify(allJokes));
+//         removeAllChildNodes(savedJokesA)
+//         listSavedJokes()
+//     return;
+//     }
+//     var initData = localStorage.getItem("init-data-jokes")
+//     if (initData = "true"){
+//         //add jokes to saved jokes and local storage
+//         allJokes = JSON.parse(localStorage.getItem("allJokes"));
+//         allJokes.push(JSON.parse(localStorage.getItem("joke")));
+//         localStorage.setItem('allJokes', JSON.stringify(allJokes));
+//         removeAllChildNodes(savedJokesA)
+//         listSavedJokes()
+// }})
 
-//remove all child nodes function
-function removeAllChildNodes(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
-}
+// //display saved jokees
 
-// generate random drink and recipe 
+// function listSavedJokes(){
+//     var allJokes = JSON.parse(localStorage.getItem("allJokes"))
+//     console.log (allJokes)
+//     allJokesLength = allJokes.length
+//     for(let i = 0; i < allJokesLength; i++){
+//         var savedJoke = document.createElement("p")
+//         savedJoke.setAttribute("data-index", i);
+//         savedJoke.addEventListener("click", function(event){
+//                 if(event.target.nodeName === 'BUTTON'){
+//                     let eTarget = event.currentTarget
+//                     var index = eTarget.getAttribute("data-index");
+//                     allJokes.splice(index, 1);
+//                     localStorage.setItem('allJokes', JSON.stringify(allJokes))
+//                     removeAllChildNodes(savedJokesA)
+//                     listSavedJokes()
+//                 }
+//         })
+//         savedJoke.innerHTML = allJokes[i] + '<button class="delete is-medium"></button>'
+//         savedJokesA.appendChild(savedJoke)
+//     };  
+// }
+// listSavedJokes()
 
+// //remove all child nodes function
+// function removeAllChildNodes(parent) {
+//     while (parent.firstChild) {
+//         parent.removeChild(parent.firstChild);
+//     }
+// }
+
+// // generate random drink and recipe 
+
+// function generateJoke() {
+
+// };
+
+
+const drinkHistory = JSON.parse(localStorage.getItem("drinkHistory")) || [];
 
 const drinkButtonVariable = document.getElementById('drinkButton');
 function generateRecipe() {
-    const select = document.getElementById('drink');
-    let liquor = select.options[select.selectedIndex].value;
-    console.log(liquor);
-    let randomUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=` + liquor;
-    console.log(randomUrl);
+    const randomUrl = `https://www.thecocktaildb.com/api/json/v1/1/random.php`;
 
+    // getting the data from the Url
     fetch(randomUrl)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-            const drinkNumber = data.drinks[0].idDrink;
-            console.log(drinkNumber);
 
-            // creates an array out of the object 
+
+            const newDrink = {
+                name: data.drinks[0].strDrink,
+                ingredients: [],
+            };
+
+
+
+
+            // creates an array out of the object
             const drinkarr = Object.entries(data.drinks[0]);
-            console.log(drinkarr);
 
             // loops through the array to find ingredients used
+            // savedDrink array to push ingredients into
+            //    const savedDrinkArr = [];
+
+            const oldRecipes = document.querySelectorAll('.recipe-item');
+
+            for (let i = 0; i < oldRecipes.length; i++) {
+                oldRecipes[i].remove();
+            }
+            drinkName.textContent = data.drinks[0].strDrink;
             for (let i = 0; i < drinkarr.length; i++) {
                 const key = drinkarr[i][0];
                 const value = drinkarr[i][1];
 
+                // finds the ingriendients in the array by selecting key values that have "ingredient"        
                 if (key.toLowerCase().includes('ingredient') && value) {
-                    console.log(key, value);
-                    const recipe = value;
-                    console.log(recipe);
-                    drinkName.textContent = data.drinks[0].strDrink;
-
-                    const listEl = document.createElement('p');
-                    listEl.textContent = recipe;
+                    const listEl = document.createElement('li');
+                    newDrink.ingredients.push(value);
+                    listEl.classList.add("recipe-item")
+                    listEl.textContent = value;
                     ingredientList.append(listEl);
-                    
+                    // adds each ingredient into array
+                    //    savedDrinkArr.push(value);
+                    // turns array items into string
+                    //    localStorage.setItem("name", JSON.stringify(data.drinks[0].strDrink + "--" + savedDrinkArr));
+
+                    //    renderSavedDrink(key, value);
                 };
 
-            };
+            }
+
+            drinkHistory.unshift(newDrink);
+            localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
+
+            renderSavedDrink();
+            //    console.log(savedDrinkArr);
         });
 }
 
+function renderSavedDrink() {
 
-// function getRandomImage() {
-// };
+    savedIngredientList.innerHTML = "";
+
+    for (let i = 0; i < drinkHistory.length; i++) {
+        const saved = drinkHistory[i];
+
+        const p = document.createElement("p");
+        p.setAttribute("data-index", i);
+        p.textContent = saved.name;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "delete";
+
+        p.append(" ", deleteButton);
+        savedIngredientList.append(p);
+
+
+        deleteButton.addEventListener("click", function (event) {
+            event.preventDefault(); 
+            const element = event.target;
+            if (element.matches("button") === true) {
+                const index = element.parentElement.getAttribute("data-index");
+                drinkHistory.splice(index, 1);
+                localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
+                
+               renderSavedDrink();
+            }
+
+        });
+    }
+}
+
+
+
+
+
+saveButton.addEventListener("click", function (event) {
+    event.preventDefault();
+
+});
+
+
+
+
+
+generateRecipeEl.addEventListener('click', generateRecipe);
+
+
+renderSavedDrink();

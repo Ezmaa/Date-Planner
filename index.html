@@ -85,16 +85,18 @@
                                 </div>
                             </div>
                             <div class="control">
-                                <button class="button is-medium is-link is-rounded" id="generate-recipe">Select</button>
+                                <button class="button is-medium is-link is-rounded" id="generate-recipe">Random</button>
                             </div>
                         </div>
                         <article class="panel is-info">
                             <a class="panel-block is-active is-flex-wrap-wrap">
-                                <p>Recipe</p>
+                                <p>Recipe:</p>
+                                <p id="drinkName"></p>
+                                <ul id="ingredientsList"></ul>
                             </a>
                         </article>
                         <div class="content has-text-centered">
-                            <button class="button is-medium is-responsive is-primary is-rounded" id="generate-recipe">Click to save this recipe</button>
+                            <button class="button is-medium is-responsive is-primary is-rounded" id="save-recipe">Click to save this recipe</button>
                         </div>
                         <!-- Saved Recipes -->
                     </article>
@@ -105,6 +107,8 @@
                             </p>
                             <a class="panel-block is-active is-flex-wrap-wrap">
                                 <p class="mr-auto">Recipe</p>
+                                <p id="savedDrinkName"></p>
+                                <ul id="savedIngredientList"></ul>
                                 <span class="icon is-large has-text-danger"><i class="fas fa-trash-alt"></i></span>
                             </a>
                         </article>
