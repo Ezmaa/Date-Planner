@@ -10,81 +10,81 @@ const savedDrinkName = document.getElementById('savedDrinkName');
 const savedIngredientList = document.getElementById('savedIngredientList')
 
 
-// // function to generate random jokes
-// function generateJoke() {
-//     fetch('https://official-joke-api.appspot.com/random_joke')
-//     .then((response) => response.json())
-//     .then(function(data){
-//         let generatedJoke = document.getElementById("joke1")
-//         console.log(data)
-//         setup = (data.setup)
-//         punchline = (data.punchline)
-//         generatedJoke.innerHTML = setup + "<br></br>" + punchline
-//         localStorage.setItem("joke", JSON.stringify(generatedJoke.innerHTML))
-//   })
-//   .catch(error => console.log(error))
-// };
+// function to generate random jokes
+function generateJoke() {
+    fetch('https://official-joke-api.appspot.com/random_joke')
+    .then((response) => response.json())
+    .then(function(data){
+        let generatedJoke = document.getElementById("joke1")
+        console.log(data)
+        setup = (data.setup)
+        punchline = (data.punchline)
+        generatedJoke.innerHTML = setup + "<br></br>" + punchline
+        localStorage.setItem("joke", JSON.stringify(generatedJoke.innerHTML))
+  })
+  .catch(error => console.log(error))
+};
 
 
-// saveJoke.addEventListener("click", function(){
-//     //create init data for all jokes storage
-//     if (localStorage.getItem("init-data-jokes") != "true"){
-//         localStorage.setItem("init-data-jokes", "true")
-//         //add jokes to saved jokes and local storage
-//         var allJokes = []
-//         allJokes.push(JSON.parse(localStorage.getItem("joke")));
-//         localStorage.setItem('allJokes', JSON.stringify(allJokes));
-//         removeAllChildNodes(savedJokesA)
-//         listSavedJokes()
-//     return;
-//     }
-//     var initData = localStorage.getItem("init-data-jokes")
-//     if (initData = "true"){
-//         //add jokes to saved jokes and local storage
-//         allJokes = JSON.parse(localStorage.getItem("allJokes"));
-//         allJokes.push(JSON.parse(localStorage.getItem("joke")));
-//         localStorage.setItem('allJokes', JSON.stringify(allJokes));
-//         removeAllChildNodes(savedJokesA)
-//         listSavedJokes()
-// }})
+saveJoke.addEventListener("click", function(){
+    //create init data for all jokes storage
+    if (localStorage.getItem("init-data-jokes") != "true"){
+        localStorage.setItem("init-data-jokes", "true")
+        //add jokes to saved jokes and local storage
+        var allJokes = []
+        allJokes.push(JSON.parse(localStorage.getItem("joke")));
+        localStorage.setItem('allJokes', JSON.stringify(allJokes));
+        removeAllChildNodes(savedJokesA)
+        listSavedJokes()
+    return;
+    }
+    var initData = localStorage.getItem("init-data-jokes")
+    if (initData = "true"){
+        //add jokes to saved jokes and local storage
+        allJokes = JSON.parse(localStorage.getItem("allJokes"));
+        allJokes.push(JSON.parse(localStorage.getItem("joke")));
+        localStorage.setItem('allJokes', JSON.stringify(allJokes));
+        removeAllChildNodes(savedJokesA)
+        listSavedJokes()
+}})
 
-// //display saved jokees
+//display saved jokees
 
-// function listSavedJokes(){
-//     var allJokes = JSON.parse(localStorage.getItem("allJokes"))
-//     console.log (allJokes)
-//     allJokesLength = allJokes.length
-//     for(let i = 0; i < allJokesLength; i++){
-//         var savedJoke = document.createElement("p")
-//         savedJoke.setAttribute("data-index", i);
-//         savedJoke.addEventListener("click", function(event){
-//                 if(event.target.nodeName === 'BUTTON'){
-//                     let eTarget = event.currentTarget
-//                     var index = eTarget.getAttribute("data-index");
-//                     allJokes.splice(index, 1);
-//                     localStorage.setItem('allJokes', JSON.stringify(allJokes))
-//                     removeAllChildNodes(savedJokesA)
-//                     listSavedJokes()
-//                 }
-//         })
-//         savedJoke.innerHTML = allJokes[i] + '<button class="delete is-medium"></button>'
-//         savedJokesA.appendChild(savedJoke)
-//     };  
-// }
-// listSavedJokes()
+function listSavedJokes(){
+    var allJokes = JSON.parse(localStorage.getItem("allJokes"))
+    console.log (allJokes)
+    allJokesLength = allJokes.length
+    for(let i = 0; i < allJokesLength; i++){
+        var savedJoke = document.createElement("p")
+        savedJoke.setAttribute("data-index", i);
+        savedJoke.addEventListener("click", function(event){
+                if(event.target.nodeName === 'BUTTON'){
+                    let eTarget = event.currentTarget
+                    var index = eTarget.getAttribute("data-index");
+                    allJokes.splice(index, 1);
+                    localStorage.setItem('allJokes', JSON.stringify(allJokes))
+                    removeAllChildNodes(savedJokesA)
+                    listSavedJokes()
+                }
+        })
+        savedJoke.innerHTML = allJokes[i] + '<button class="delete is-medium"></button>'
+        savedJokesA.appendChild(savedJoke)
+    };  
+}
+listSavedJokes()
 
-// //remove all child nodes function
-// function removeAllChildNodes(parent) {
-//     while (parent.firstChild) {
-//         parent.removeChild(parent.firstChild);
-//     }
-// }
+//remove all child nodes function
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
 
-// // generate random drink and recipe 
+// generate random drink and recipe 
 
-// function generateJoke() {
+function generateJoke() {
 
-// };
+};
 
 
 const drinkHistory = JSON.parse(localStorage.getItem("drinkHistory")) || [];
@@ -133,12 +133,8 @@ function generateRecipe() {
                     listEl.classList.add("recipe-item")
                     listEl.textContent = value;
                     ingredientList.append(listEl);
-                    // adds each ingredient into array
-                    //    savedDrinkArr.push(value);
-                    // turns array items into string
-                    //    localStorage.setItem("name", JSON.stringify(data.drinks[0].strDrink + "--" + savedDrinkArr));
-
-                    //    renderSavedDrink(key, value);
+                    
+                   
                 };
 
             }
