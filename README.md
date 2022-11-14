@@ -11,7 +11,7 @@ N/A
 
 ## Deployed Webpage
 
-![Final webpage](assets/images/screenshot.png)
+![Final webpage](img/dotb.png)
 Deployed URL: https://ezmaa.github.io/Drink-Outside-The-Box/
 
 
