@@ -174,8 +174,8 @@ function generateRecipe() {
             }
 
             drinkHistory.unshift(newDrink);
-            localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
-
+            
+            
         });
 }
 
@@ -190,7 +190,7 @@ function renderSavedDrink() {
     else {
 
         savedIngredientList.innerHTML = "";
-
+        console.log(drinkHistory);
         // append each drink item to the saved recipe list
         for (let i = 0; i < drinkHistory.length; i++) {
             const saved = drinkHistory[i];
@@ -215,7 +215,7 @@ function renderSavedDrink() {
                     const index = element.parentElement.getAttribute("data-index");
                     drinkHistory.splice(index, 1);
                     localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
-
+                    
                     renderSavedDrink();
                 }
 
@@ -228,6 +228,21 @@ renderSavedDrink();
 
 saveButton.addEventListener("click", function (event) {
     event.preventDefault();
+    const ingredients = [];
+   console.log(ingredientList.children)
+    for (i=0; i<ingredientList.children.length; i++) {
+        ingredients.push(ingredientList.children[i].innerHTML)
+    }
+
+    const drinkToSave = {
+        ingredients, 
+        name: drinkName.innerHTML
+    }
+    console.log(drinkToSave)
+    const currentHistory = JSON.parse(localStorage.getItem("drinkHistory")) || [];
+    currentHistory.push(drinkToSave);
+    localStorage.setItem("drinkHistory", JSON.stringify(currentHistory));
+    
     renderSavedDrink();
 });
 
