@@ -105,7 +105,7 @@ function listSavedJokes() {
                     listSavedJokes()
                 }
             })
-            savedJoke.innerHTML = allJokes[i] + '<button class="button is-medium has-text-danger"><i class="fas fa-trash-alt"></i></button>'
+            savedJoke.innerHTML = allJokes[i] + '<button class="button is-medium has-text-danger fas fa-trash-alt"></button>'
             savedJokesA.appendChild(savedJoke)
         };
     }
