@@ -49,7 +49,7 @@ saveJoke.addEventListener("click", function () {
     if (localStorage.getItem("init-data-jokes") != "true") {
         localStorage.setItem("init-data-jokes", "true")
         //add jokes to saved jokes and local storage
-        // let allJokes = [];
+        let allJokes = [];
         allJokes.push(JSON.parse(localStorage.getItem("joke")));
         localStorage.setItem('allJokes', JSON.stringify(allJokes));
         removeAllChildNodes(savedJokesA);
@@ -97,12 +97,25 @@ function listSavedJokes() {
             savedJoke.setAttribute("data-index", i);
             savedJoke.addEventListener("click", function (event) {
                 if (event.target.nodeName === 'BUTTON') {
-                    let eTarget = event.currentTarget
-                    var index = eTarget.getAttribute("data-index");
-                    allJokes.splice(index, 1);
-                    localStorage.setItem('allJokes', JSON.stringify(allJokes))
-                    removeAllChildNodes(savedJokesA)
-                    listSavedJokes()
+                    const popWindow = document.querySelector(".modal");
+                    const cancelButton = document.getElementById("cancelButton");
+                    const yesButton = document.getElementById("yesButton");
+                    const closeModal = document.getElementById("closeModal");
+                    popWindow.classList.add('is-active');
+                    yesButton.addEventListener("click",function (event) {
+                        let eTarget = event.currentTarget
+                        var index = eTarget.getAttribute("data-index");
+                        allJokes.splice(index, 1);
+                        localStorage.setItem('allJokes', JSON.stringify(allJokes))
+                        removeAllChildNodes(savedJokesA)
+                        listSavedJokes()
+                    });
+                    cancelButton.addEventListener("click", function(){
+                        popWindow.classList.remove('is-active');
+                    });
+                    closeModal.addEventListener("click", function(){
+                        popWindow.classList.remove('is-active');
+                    });
                 }
             })
             savedJoke.innerHTML = allJokes[i] + '<button class="button is-medium has-text-danger fas fa-trash-alt"></button>'
@@ -212,11 +225,7 @@ function renderSavedDrink() {
                 event.preventDefault();
                 const element = event.target;
                 if (element.matches("button") === true) {
-                    const index = element.parentElement.getAttribute("data-index");
-                    drinkHistory.splice(index, 1);
-                    localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
-                    
-                    renderSavedDrink();
+
                 }
 
             });
