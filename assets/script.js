@@ -8,6 +8,7 @@ const savedJokesA = document.getElementById("saved-jokes");
 const saveButton = document.querySelector('#save-recipe');
 const savedDrinkName = document.getElementById('savedDrinkName');
 const savedIngredientList = document.getElementById('savedIngredientList');
+const customJokeInput = document.getElementById('custom-joke')
 
 
 //function to generate random jokes
@@ -39,7 +40,7 @@ function generateJoke() {
 };
 
 //generate joke event listner
-generateJokeEl.addEventListener('click', function () {
+generateJokeEl.addEventListener("click", function () {
     generateJoke()
 });
 
@@ -48,17 +49,25 @@ saveJoke.addEventListener("click", function () {
     if (localStorage.getItem("init-data-jokes") != "true") {
         localStorage.setItem("init-data-jokes", "true")
         //add jokes to saved jokes and local storage
-        let allJokes = []
         allJokes.push(JSON.parse(localStorage.getItem("joke")));
         localStorage.setItem('allJokes', JSON.stringify(allJokes));
-        removeAllChildNodes(savedJokesA)
-        listSavedJokes()
+        removeAllChildNodes(savedJokesA);
+        listSavedJokes();
         return;
     }
     let initData = localStorage.getItem("init-data-jokes")
     if (initData = "true") {
         //add jokes to saved jokes and local storage
         allJokes = JSON.parse(localStorage.getItem("allJokes"));
+        //if custom joke input isn't empty save it
+        if (customJokeInput.value !== '') {
+            allJokes.push(customJokeInput.value);
+            localStorage.setItem('allJokes', JSON.stringify(allJokes));
+            customJokeInput.value = '';
+            removeAllChildNodes(savedJokesA);
+            listSavedJokes();
+            return;
+        }
         allJokes.push(JSON.parse(localStorage.getItem("joke")));
         localStorage.setItem('allJokes', JSON.stringify(allJokes));
         removeAllChildNodes(savedJokesA)
@@ -71,9 +80,6 @@ saveJoke.addEventListener("click", function () {
 //display saved jokees
 
 function listSavedJokes() {
-    if (localStorage.getItem("allJokes") === "[]" || localStorage.getItem("allJokes") === null){
-        const savedJoke = document.createElement("p");
-        savedJoke.textContent = "Empty here... Start saving jokes!"
         savedJokesA.appendChild(savedJoke)
 
     }
@@ -110,7 +116,6 @@ function removeAllChildNodes(parent) {
 }
 
 // generate random drink and recipe
-
 
 
 const drinkHistory = JSON.parse(localStorage.getItem("drinkHistory")) || [];
