@@ -8,6 +8,7 @@ const savedJokesA = document.getElementById("saved-jokes");
 const saveButton = document.querySelector('#save-recipe');
 const savedDrinkName = document.getElementById('savedDrinkName');
 const savedIngredientList = document.getElementById('savedIngredientList');
+const customJokeInput = document.getElementById('custom-joke')
 
 
 //function to generate random jokes
@@ -26,7 +27,7 @@ function generateJoke() {
 };
 
 //generate joke event listner
-generateJokeEl.addEventListener('click', function () {
+generateJokeEl.addEventListener("click", function () {
     generateJoke()
 });
 
@@ -36,16 +37,34 @@ saveJoke.addEventListener("click", function () {
         localStorage.setItem("init-data-jokes", "true")
         //add jokes to saved jokes and local storage
         var allJokes = []
+        //if custom joke input isn't empty save it
+        if (customJokeInput.value !== '') {
+            allJokes.push(customJokeInput.value);
+            localStorage.setItem('allJokes', JSON.stringify(allJokes));
+            customJokeInput.value = '';
+            removeAllChildNodes(savedJokesA);
+            listSavedJokes();
+            return;
+        }
         allJokes.push(JSON.parse(localStorage.getItem("joke")));
         localStorage.setItem('allJokes', JSON.stringify(allJokes));
-        removeAllChildNodes(savedJokesA)
-        listSavedJokes()
+        removeAllChildNodes(savedJokesA);
+        listSavedJokes();
         return;
     }
     var initData = localStorage.getItem("init-data-jokes")
     if (initData = "true") {
         //add jokes to saved jokes and local storage
         allJokes = JSON.parse(localStorage.getItem("allJokes"));
+        //if custom joke input isn't empty save it
+        if (customJokeInput.value !== '') {
+            allJokes.push(customJokeInput.value);
+            localStorage.setItem('allJokes', JSON.stringify(allJokes));
+            customJokeInput.value = '';
+            removeAllChildNodes(savedJokesA);
+            listSavedJokes();
+            return;
+        }
         allJokes.push(JSON.parse(localStorage.getItem("joke")));
         localStorage.setItem('allJokes', JSON.stringify(allJokes));
         removeAllChildNodes(savedJokesA)
@@ -75,7 +94,7 @@ function listSavedJokes() {
                 listSavedJokes()
             }
         })
-        savedJoke.innerHTML = allJokes[i] + '<button class="button is-medium has-text-danger"><i class="fas fa-trash-alt"></i></button>'
+        savedJoke.innerHTML = allJokes[i] + '<button class="button is-medium fas fa-trash-alt"></button>'
         savedJokesA.appendChild(savedJoke)
     };
 }
@@ -89,10 +108,6 @@ function removeAllChildNodes(parent) {
 }
 
 // generate random drink and recipe
-
-function generateJoke() {
-
-};
 
 
 const drinkHistory = JSON.parse(localStorage.getItem("drinkHistory")) || [];
