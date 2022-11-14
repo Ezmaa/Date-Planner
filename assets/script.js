@@ -12,17 +12,30 @@ const savedIngredientList = document.getElementById('savedIngredientList');
 
 //function to generate random jokes
 function generateJoke() {
+
+    const loader = document.getElementById("loader");
+    loader.style.display = "";
+
     fetch('https://official-joke-api.appspot.com/random_joke')
         .then((response) => response.json())
         .then(function (data) {
             let generatedJoke = document.getElementById("joke1")
-            console.log(data)
             setup = (data.setup)
             punchline = (data.punchline)
+            loader.style.display = "none";
             generatedJoke.innerHTML = setup + "<br></br>" + punchline
             localStorage.setItem("joke", JSON.stringify(generatedJoke.innerHTML))
         })
-        .catch(error => console.log(error))
+        .catch((error) => {
+            loader.style.display = "none";
+            const messageModal = document.getElementById("error-modal");
+            messageModal.style.display = "";
+            const errorMessage = document.getElementById("error-message");
+            errorMessage.textContent = "Error occured: " + error.message;
+
+            const dismissButton = document.getElementById("dismiss-button");
+            dismissButton.addEventListener("click", () => messageModal.style.display = "none")
+        }); 
 };
 
 //generate joke event listner
@@ -35,14 +48,14 @@ saveJoke.addEventListener("click", function () {
     if (localStorage.getItem("init-data-jokes") != "true") {
         localStorage.setItem("init-data-jokes", "true")
         //add jokes to saved jokes and local storage
-        var allJokes = []
+        let allJokes = []
         allJokes.push(JSON.parse(localStorage.getItem("joke")));
         localStorage.setItem('allJokes', JSON.stringify(allJokes));
         removeAllChildNodes(savedJokesA)
         listSavedJokes()
         return;
     }
-    var initData = localStorage.getItem("init-data-jokes")
+    let initData = localStorage.getItem("init-data-jokes")
     if (initData = "true") {
         //add jokes to saved jokes and local storage
         allJokes = JSON.parse(localStorage.getItem("allJokes"));
@@ -58,28 +71,36 @@ saveJoke.addEventListener("click", function () {
 //display saved jokees
 
 function listSavedJokes() {
-    var allJokes = JSON.parse(localStorage.getItem("allJokes"))
-    console.log(allJokes)
-    allJokesLength = allJokes.length
-    for (let i = 0; i < allJokesLength; i++) {
-        var savedJoke = document.createElement("p");
-        savedJoke.classList.add("panel-block", "saved-joke");
-        savedJoke.setAttribute("data-index", i);
-        savedJoke.addEventListener("click", function (event) {
-            if (event.target.nodeName === 'BUTTON') {
-                let eTarget = event.currentTarget
-                var index = eTarget.getAttribute("data-index");
-                allJokes.splice(index, 1);
-                localStorage.setItem('allJokes', JSON.stringify(allJokes))
-                removeAllChildNodes(savedJokesA)
-                listSavedJokes()
-            }
-        })
-        savedJoke.innerHTML = allJokes[i] + '<button class="button is-medium has-text-danger"><i class="fas fa-trash-alt"></i></button>'
+    if (localStorage.getItem("allJokes") === "[]" || localStorage.getItem("allJokes") === null){
+        const savedJoke = document.createElement("p");
+        savedJoke.textContent = "Empty here... Start saving jokes!"
         savedJokesA.appendChild(savedJoke)
-    };
+
+    }
+    else {
+        const allJokes = JSON.parse(localStorage.getItem("allJokes"))
+        allJokesLength = allJokes.length
+        for (let i = 0; i < allJokesLength; i++) {
+            const savedJoke = document.createElement("p");
+            savedJoke.classList.add("panel-block", "saved-joke");
+            savedJoke.setAttribute("data-index", i);
+            savedJoke.addEventListener("click", function (event) {
+                if (event.target.nodeName === 'BUTTON') {
+                    let eTarget = event.currentTarget
+                    var index = eTarget.getAttribute("data-index");
+                    allJokes.splice(index, 1);
+                    localStorage.setItem('allJokes', JSON.stringify(allJokes))
+                    removeAllChildNodes(savedJokesA)
+                    listSavedJokes()
+                }
+            })
+            savedJoke.innerHTML = allJokes[i] + '<button class="button is-medium has-text-danger"><i class="fas fa-trash-alt"></i></button>'
+            savedJokesA.appendChild(savedJoke)
+        };
+    }
 }
-listSavedJokes()
+
+listSavedJokes();
 
 //remove all child nodes function
 function removeAllChildNodes(parent) {
@@ -90,9 +111,6 @@ function removeAllChildNodes(parent) {
 
 // generate random drink and recipe
 
-function generateJoke() {
-
-};
 
 
 const drinkHistory = JSON.parse(localStorage.getItem("drinkHistory")) || [];
@@ -133,7 +151,7 @@ function generateRecipe() {
 
                 // finds the ingriendients in the array by selecting key values that have "ingredient"       
                 if (key.toLowerCase().includes('ingredient') && value) {
-                    const listEl = document.createElement('li');
+                    const listEl = document.createElement('p');
                     newDrink.ingredients.push(value);
                     listEl.classList.add("recipe-item")
                     listEl.textContent = value;
@@ -149,39 +167,50 @@ function generateRecipe() {
 
 function renderSavedDrink() {
 
-    savedIngredientList.innerHTML = "";
+    if (localStorage.getItem("drinkHistory") === "[]" || localStorage.getItem("drinkHistory") === null) {
+        savedIngredientList.innerHTML = "";
+        const empty = document.createElement('p');
+        savedDrinkName.textContent = "No saved recipes yet. Save a new recipe!";
+        savedIngredientList.append(empty);
+    }
+    else {
 
-    // append each drink item to the saved recipe list
-    for (let i = 0; i < drinkHistory.length; i++) {
-        const saved = drinkHistory[i];
+        savedIngredientList.innerHTML = "";
 
-        const p = document.createElement("p");
-        p.setAttribute("data-index", i);
-        p.textContent = (saved.name + " --- " + saved.ingredients);
+        // append each drink item to the saved recipe list
+        for (let i = 0; i < drinkHistory.length; i++) {
+            const saved = drinkHistory[i];
 
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "delete";
+            const p = document.createElement("p");
+            p.classList.add("panel-block");
+            p.setAttribute("data-index", i);
+            p.textContent = (saved.name + " --- " + saved.ingredients + " ");
 
-        p.append(" ", deleteButton);
-        savedIngredientList.append(p);
+            const deleteButton = document.createElement("span");
+            deleteButton.innerHTML = '<button class="button is-medium has-text-danger"><i class="fas fa-trash-alt"></i></button>';
+
+            p.append(" ", deleteButton);
+            savedIngredientList.append(p);
 
 
-        // delete each item from list
-        deleteButton.addEventListener("click", function (event) {
-            event.preventDefault();
-            const element = event.target;
-            if (element.matches("button") === true) {
-                const index = element.parentElement.getAttribute("data-index");
-                drinkHistory.splice(index, 1);
-                localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
+            // delete each item from list
+            deleteButton.addEventListener("click", function (event) {
+                event.preventDefault();
+                const element = event.target;
+                if (element.matches("button") === true) {
+                    const index = element.parentElement.getAttribute("data-index");
+                    drinkHistory.splice(index, 1);
+                    localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
 
-                renderSavedDrink();
-            }
+                    renderSavedDrink();
+                }
 
-        });
+            });
+        }
     }
 
 }
+renderSavedDrink();
 
 saveButton.addEventListener("click", function (event) {
     event.preventDefault();
