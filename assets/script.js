@@ -225,6 +225,32 @@ function renderSavedDrink() {
                 event.preventDefault();
                 const element = event.target;
                 if (element.matches("button") === true) {
+                    const popWindow = document.querySelector(".modal");
+                    const cancelButton = document.getElementById("cancelButton");
+                    const yesButton = document.getElementById("yesButton");
+                    const closeModal = document.getElementById("closeModal");
+                    popWindow.classList.add('is-active');
+
+                    yesButton.addEventListener("click",function (event) {
+
+                        const index = element.parentElement.getAttribute("data-index");
+                        drinkHistory.splice(index, 1);
+                        localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
+                        popWindow.classList.remove('is-active');
+
+                        renderSavedDrink();
+                    });
+                    cancelButton.addEventListener("click", function(){
+                        popWindow.classList.remove('is-active');
+                    });
+                    closeModal.addEventListener("click", function(){
+                        popWindow.classList.remove('is-active');
+                    });
+                    const index = element.parentElement.getAttribute("data-index");
+                    drinkHistory.splice(index, 1);
+                    localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
+                    
+                    renderSavedDrink();
 
                 }
 
