@@ -11,7 +11,7 @@ body {
     font-size: 48px;
 }
 
-p {
+p, ul {
     font-family: "Amatic SC", cursive;
     font-size: 32px;
 }

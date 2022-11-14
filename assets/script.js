@@ -49,6 +49,7 @@ saveJoke.addEventListener("click", function () {
     if (localStorage.getItem("init-data-jokes") != "true") {
         localStorage.setItem("init-data-jokes", "true")
         //add jokes to saved jokes and local storage
+        // let allJokes = [];
         allJokes.push(JSON.parse(localStorage.getItem("joke")));
         localStorage.setItem('allJokes', JSON.stringify(allJokes));
         removeAllChildNodes(savedJokesA);
@@ -80,7 +81,11 @@ saveJoke.addEventListener("click", function () {
 //display saved jokees
 
 function listSavedJokes() {
-        savedJokesA.appendChild(savedJoke)
+    if (localStorage.getItem("allJokes") === "[]" || localStorage.getItem("allJokes") === null) {
+        savedJokesA.innerHTML = "";
+        const emptyJoke = document.createElement('p');
+        emptyJoke.textContent = "Empty here... Start saving jokes!";
+        savedJokesA.append(emptyJoke);
 
     }
     else {
@@ -124,6 +129,9 @@ const drinkButtonVariable = document.getElementById('drinkButton');
 function generateRecipe() {
     const randomUrl = `https://www.thecocktaildb.com/api/json/v1/1/random.php`;
 
+    const loader2 = document.getElementById("loader2");
+    loader2.style.display = "";
+
     // getting the data from the Url
     fetch(randomUrl)
         .then(function (response) {
@@ -143,6 +151,7 @@ function generateRecipe() {
             // loops through the array to find ingredients used
             // savedDrink array to push ingredients into
             const oldRecipes = document.querySelectorAll('.recipe-item');
+            loader2.style.display = "none";
 
             for (let i = 0; i < oldRecipes.length; i++) {
                 oldRecipes[i].remove();
@@ -175,7 +184,7 @@ function renderSavedDrink() {
     if (localStorage.getItem("drinkHistory") === "[]" || localStorage.getItem("drinkHistory") === null) {
         savedIngredientList.innerHTML = "";
         const empty = document.createElement('p');
-        savedDrinkName.textContent = "No saved recipes yet. Save a new recipe!";
+        savedIngredientList.textContent = "No saved recipes yet. Save a new recipe!";
         savedIngredientList.append(empty);
     }
     else {
