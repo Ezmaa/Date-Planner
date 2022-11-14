@@ -108,6 +108,7 @@ function listSavedJokes() {
                         allJokes.splice(index, 1);
                         localStorage.setItem('allJokes', JSON.stringify(allJokes))
                         removeAllChildNodes(savedJokesA)
+                        popWindow.classList.remove('is-active');
                         listSavedJokes()
                     });
                     cancelButton.addEventListener("click", function(){
